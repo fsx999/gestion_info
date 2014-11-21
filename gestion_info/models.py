@@ -18,7 +18,7 @@ class Salle(models.Model):
     """ Salle de l'institut
     """
     label = models.CharField(max_length=10, verbose_name='Numéro de salle')
-    comment = models.TextField(null=True, verbose_name="Commentaire")
+    comment = models.TextField(null=True, verbose_name="Commentaire", blank=True)
 
     def __str__(self):
         return self.label

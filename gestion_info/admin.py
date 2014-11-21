@@ -15,7 +15,16 @@ class EquipementAdmin(admin.ModelAdmin):
 
 class SalleAdmin(admin.ModelAdmin):
     inlines = [EquipementInline]
-    search_fields = ['label']
+    search_fields = ['label', 'equipements__mac_adresse']
+    list_display = ['__str__', 'liste_equipement']
+    readonly_fields = ['liste_equipement']
+
+    def liste_equipement(self, obj):
+        result = ''
+        for equipement in obj.equipements.all():
+            result += str(equipement) + '<br>'
+        return result
+    liste_equipement.allow_tags = True
 
 
 admin.site.register(TypeEquipement)

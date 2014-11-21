@@ -28,9 +28,9 @@ class Salle(models.Model):
 class Equipement(models.Model):
     name = models.CharField(max_length=32)
     type = models.ForeignKey(TypeEquipement)
-    salle = models.ForeignKey(Salle)
+    salle = models.ForeignKey(Salle, related_name='equipements')
     mac_adresse = MACAddressField(integer=False, null=True)
     ip = models.GenericIPAddressField(null=True, blank=True)
 
     def __str__(self):
-        return "{} {} {}".format(self.salle.label, self.type, self.name)
+        return "{} {} {} {}".format(self.salle.label, self.type, self.name, self.mac_adresse)

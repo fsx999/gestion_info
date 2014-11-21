@@ -30,7 +30,7 @@ class Equipement(models.Model):
     type = models.ForeignKey(TypeEquipement)
     salle = models.ForeignKey(Salle)
     mac_adresse = MACAddressField(integer=False, null=True)
-    ip = models.IPAddressField(null=True, blank=True)
+    ip = models.GenericIPAddressField(null=True, blank=True)
 
     def __str__(self):
         return "{} {} {}".format(self.salle.label, self.type, self.name)

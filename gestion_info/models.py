@@ -6,8 +6,19 @@ from macaddress.fields import MACAddressField
 
 
 @python_2_unicode_compatible
-class TypeEquipement(models.Model):
+class TypeBaseEquipement(models.Model):
+    code = models.CharField(max_length=3)
     label = models.CharField(max_length=32)
+
+    def __str__(self):
+        return self.label
+
+
+@python_2_unicode_compatible
+class TypeEquipement(models.Model):
+    base = models.ForeignKey(TypeBaseEquipement, null=True)
+    label = models.CharField(max_length=32)
+    comment = models.TextField(null=True, blank=True)
 
     def __str__(self):
         return self.label

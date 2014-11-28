@@ -16,8 +16,8 @@ class EquipementAdmin(admin.ModelAdmin):
 class SalleAdmin(admin.ModelAdmin):
     inlines = [EquipementInline]
     search_fields = ['label', 'equipements__mac_adresse']
-    list_display = ['__str__', 'liste_equipement']
-    readonly_fields = ['liste_equipement']
+    list_display = ['__str__', 'liste_equipement', 'config_dhcp']
+    readonly_fields = ['liste_equipement', 'config_dhcp']
 
     def liste_equipement(self, obj):
         result = ''
@@ -25,6 +25,17 @@ class SalleAdmin(admin.ModelAdmin):
             result += str(equipement) + '<br>'
         return result
     liste_equipement.allow_tags = True
+
+    def config_dhcp(self, obj):
+        result = "#{}<br>".format(obj.label)
+        for equipement in obj.equipements.filter(type__base__code='CL'):
+            result += 'host {} {{ hardware ethernet {}; }} <br>'.format(equipement.name.strip().replace(' ', '_'),
+                                                                        str(equipement.mac_adresse).lower())
+        return result
+    config_dhcp.allow_tags = True
+
+
+
 
 
 admin.site.register(TypeEquipement)

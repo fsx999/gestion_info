@@ -1,7 +1,7 @@
 from __future__ import unicode_literals
 # coding=utf-8
 from django.contrib import admin
-from gestion_info.models import TypeEquipement, Salle, Equipement
+from gestion_info.models import TypeEquipement, Salle, Equipement, TypeBaseEquipement
 
 
 class EquipementInline(admin.TabularInline):
@@ -30,3 +30,4 @@ class SalleAdmin(admin.ModelAdmin):
 admin.site.register(TypeEquipement)
 admin.site.register(Equipement, EquipementAdmin)
 admin.site.register(Salle, SalleAdmin)
+admin.site.register(TypeBaseEquipement)

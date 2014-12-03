@@ -18,6 +18,7 @@ class SalleAdmin(admin.ModelAdmin):
     search_fields = ['label', 'equipements__mac_adresse']
     list_display = ['__str__', 'liste_equipement', 'config_dhcp']
     readonly_fields = ['liste_equipement', 'config_dhcp']
+    ordering = ['label']
 
     def liste_equipement(self, obj):
         result = ''

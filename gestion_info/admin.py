@@ -38,6 +38,15 @@ class SalleAdmin(admin.ModelAdmin):
             else:
                 result += 'host {} {{ hardware ethernet {}; }} <br>'.format(equipement.name.strip().replace(' ', '_'),
                                                                         str(equipement.mac_adresse).lower())
+        imprimantes = obj.equipements.filter(type__base__code='IMP')
+        if imprimantes:
+            result += '<hr> Imprimante <br>'
+        for equipement in obj.equipements.filter(type__base__code='IMP'):
+            result += 'host {} {{ hardware ethernet {}; fixed-address {}; }} <br>'.format(
+                equipement.name.strip().replace(' ', '_'),
+                str(equipement.mac_adresse).lower(),
+                equipement.ip)
+
         return result
     config_dhcp.allow_tags = True
 

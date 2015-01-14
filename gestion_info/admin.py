@@ -30,7 +30,13 @@ class SalleAdmin(admin.ModelAdmin):
     def config_dhcp(self, obj):
         result = "#{}<br>".format(obj.label)
         for equipement in obj.equipements.filter(type__base__code='CL'):
-            result += 'host {} {{ hardware ethernet {}; }} <br>'.format(equipement.name.strip().replace(' ', '_'),
+            if equipement.type.base.code == 'CL' and equipement.ip:
+                result += 'host {} {{ hardware ethernet {}; fixed-address {}; }} <br>'.format(
+                    equipement.name.strip().replace(' ', '_'),
+                    str(equipement.mac_adresse).lower(),
+                    equipement.ip)
+            else:
+                result += 'host {} {{ hardware ethernet {}; }} <br>'.format(equipement.name.strip().replace(' ', '_'),
                                                                         str(equipement.mac_adresse).lower())
         return result
     config_dhcp.allow_tags = True

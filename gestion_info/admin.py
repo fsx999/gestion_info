@@ -51,9 +51,6 @@ class SalleAdmin(admin.ModelAdmin):
     config_dhcp.allow_tags = True
 
 
-
-
-
 admin.site.register(TypeEquipement)
 admin.site.register(Equipement, EquipementAdmin)
 admin.site.register(Salle, SalleAdmin)
